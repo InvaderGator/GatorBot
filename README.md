@@ -14,9 +14,9 @@ If you want to use the bot without hosting, and know me, please send me a messag
 If you don't know me, and don't want to reach out, you can by downloading the files and going through with the process of installation.
 
 ## Linux
-Install python3 for your distro.
-Extract files into a suitable directory.
-Open the cmd prompt and create a virtual enviornment in the file directory.
-- This can be done if you type *python3 -m venv /path/to/new/virtual/environment*
-Run update.sh by using ./update.sh
-Run run.sh by using ./run.sh
+Install python3 for your distro. <br>
+Extract files into a suitable directory. <br>
+Open the cmd prompt and create a virtual enviornment in the file directory. <br>
+- This can be done if you type *python3 -m venv /path/to/new/virtual/environment* <br>
+Run update.sh by using ./update.sh <br>
+Run run.sh by using ./run.sh <br>
