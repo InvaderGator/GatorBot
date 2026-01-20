@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ce88c00-4ed0-4651-a717-edc1b0151b22" name="Changes" comment="adds schedulelater">
+    <list default="true" id="5ce88c00-4ed0-4651-a717-edc1b0151b22" name="Changes" comment="adds time in">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runbot.py" beforeDir="false" afterPath="$PROJECT_DIR$/runbot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,12 +80,32 @@
       <option name="project" value="LOCAL" />
       <updated>1768917514856</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="adds time in">
+      <option name="closed" value="true" />
+      <created>1768922698637</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1768922698637</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />
     <MESSAGE value="adds schedulelater" />
-    <option name="LAST_COMMIT_MESSAGE" value="adds schedulelater" />
+    <MESSAGE value="adds time in" />
+    <option name="LAST_COMMIT_MESSAGE" value="adds time in" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/runBot.py</url>
+          <line>65</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
