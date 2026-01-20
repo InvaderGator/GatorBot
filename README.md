@@ -17,6 +17,6 @@ If you don't know me, and don't want to reach out, you can by downloading the fi
 Install python3 for your distro. <br>
 Extract files into a suitable directory. <br>
 Open the cmd prompt and create a virtual enviornment in the file directory. <br>
-- This can be done if you type *python3 -m venv /path/to/new/virtual/environment* <br>
+- This can be done if you type *python3 -m venv /path/to/new/virtual/environment*
 Run update.sh by using ./update.sh <br>
 Run run.sh by using ./run.sh <br>
