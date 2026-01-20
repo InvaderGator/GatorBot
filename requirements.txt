@@ -1,0 +1,5 @@
+py-cord
+dotenv
+asyncio
+datetime
+pytz
