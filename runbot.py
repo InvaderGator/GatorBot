@@ -14,13 +14,13 @@ with open('data.json', 'r') as file:
 # Sets year to year from .json
 year = data['year']
 
-#LOADS ENV FILE
+# Load the .env file
 load_dotenv()
 
-#CREATES CLIENT CLASS
+# Creates the client class for the discord bot libary
 client = discord.Bot()
 
-#ADMIN ID
+# Admin ID
 adminId = os.getenv('ADMIN_ID')
 
 # Create formats
@@ -196,5 +196,5 @@ def add_zero(number):
         returnNumber = f'0{number}'
     return returnNumber
 
-#RUNS BOT
+# Run the Bot
 client.run(os.getenv('DISCORD_TOKEN'))
