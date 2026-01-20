@@ -26,6 +26,7 @@ adminId = os.getenv('ADMIN_ID')
 # Create formats
 fmt = "%y-%m-%d %H:%M"
 printFmt = "%m-%d %H:%M %Z"
+printFmtNoTimezone = "%m/%d, %H:%M"
 
 # Sends message when the bot is ready.
 @client.event
@@ -88,6 +89,7 @@ async def schedule_command(ctx: discord.ApplicationContext, message: str, timezo
         await asyncio.sleep(timeDifferenceSeconds)
         await ctx.respond(message, ephemeral = False)
 
+# Schedules a message based on minutes or hours given
 @client.slash_command(name="schedulelater", description="Schedule a message based on different time inputs.", integration_types={discord.IntegrationType.user_install})
 async def schedule_later(ctx: discord.ApplicationContext, message: str, time: int, ishour: bool):
     # Converts to seconds if minutes, and to minutes if hours
@@ -103,6 +105,23 @@ async def schedule_later(ctx: discord.ApplicationContext, message: str, time: in
     print("Time Message Scheduled..")
     await asyncio.sleep(finalTime)
     await ctx.respond(message, ephemeral = False)
+
+# Returns time in given timezone
+@client.slash_command(name="timein", description="Gives time in X timezone.", integration_types={discord.IntegrationType.user_install})
+async def time_in(ctx: discord.ApplicationContext, timezone: str):
+    # String of timezone
+    tzString=find_time_zone(timezone)
+
+    # Initializes timezone converter
+    tz = pytz.timezone(find_time_zone(tzString))
+
+    # Makes a tzinfo class and converts it to timezone
+    basicTimeNow = datetime.now()
+    tz_now = basicTimeNow.astimezone(tz=tz)
+
+    # Print message to discord
+    tz_print = tz_now.strftime(printFmtNoTimezone)
+    await ctx.respond(f'The day and hour is {tz_print} in {tzString}.')
 
 # Returns github link for the bot
 @client.slash_command(name="github", description="View source code and instructions.", integration_types={discord.IntegrationType.user_install}, ephemeral=True)
