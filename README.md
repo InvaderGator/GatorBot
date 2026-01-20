@@ -3,6 +3,7 @@ Designed for personal usage for InvaderGator and his friends.
 *Includes Discord Scheduling messages*
 - Timezone schedule
 - In X time schedule
+- Time command to see what time it is in another timezone.
 
 ## Replace files in .env
 ## If you want to change the year put the last two digits of the year in .json.
