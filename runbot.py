@@ -88,6 +88,22 @@ async def schedule_command(ctx: discord.ApplicationContext, message: str, timezo
         await asyncio.sleep(timeDifferenceSeconds)
         await ctx.respond(message, ephemeral = False)
 
+@client.slash_command(name="schedulelater", description="Schedule a message based on different time inputs.", integration_types={discord.IntegrationType.user_install})
+async def schedule_later(ctx: discord.ApplicationContext, message: str, time: int, ishour: bool):
+    # Converts to seconds if minutes, and to minutes if hours
+    finalTime = time * 60
+    minuteOrHour = "minutes"
+
+    # If an hour is given, then it will give the user seconds still.
+    if ishour == True:
+        finalTime = finalTime * 60
+        minuteOrHour = "hours"
+
+    await ctx.respond(f"Message scheduled for {time} {minuteOrHour}, or {finalTime} seconds..", ephemeral=True)
+    print("Time Message Scheduled..")
+    await asyncio.sleep(finalTime)
+    await ctx.respond(message, ephemeral = False)
+
 # Returns github link for the bot
 @client.slash_command(name="github", description="View source code and instructions.", integration_types={discord.IntegrationType.user_install}, ephemeral=True)
 async def github(ctx: discord.ApplicationContext):
