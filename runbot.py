@@ -58,7 +58,9 @@ async def schedule_command(ctx: discord.ApplicationContext, message: str, timezo
     # Also checks if the user input AM or NOT
     if isam == False and was12 == False:
         hour += 12
-
+    if isam == True and was12 == True:
+        hour -= 12
+    
     # Checks if the hours exceed 24, if it does, then it will add a day and take into account extra hours.
     if hour > 24:
         day += 1
