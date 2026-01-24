@@ -5,6 +5,10 @@ Designed for personal usage for InvaderGator and his friends.
 - In X time schedule
 - Time command to see what time it is in another timezone.
 
+*Includes an Immigration bot for the A1 Bottle*
+- Create polls to let people in, deny entry, or to send them to the Gulag
+
+
 ## Replace files in .env
 ## If you want to change the year put the last two digits of the year in .json.
 ###### For example if you wanted the year to be 2030, you'd put 30.
