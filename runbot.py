@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import pytz
 import json
 
+
 # Imports year from .json
 with open('data.json', 'r') as file:
     data = json.load(file)
@@ -18,10 +19,19 @@ year = data['year']
 load_dotenv()
 
 # Creates the client class for the discord bot libary
-client = discord.Bot()
+intents = discord.Intents.default()
+intents.members = True
+intents.emojis = True
+
+client = discord.Bot(intents=intents)
 
 # Admin ID
-adminId = os.getenv('ADMIN_ID')
+adminId = int(os.getenv('ID_GATOR'))
+theFourIds = [
+    adminId,
+    int(os.getenv("ID_A1")),
+    int(os.getenv("ID_MOSH")),
+    int(os.getenv("ID_RANCH"))]
 
 # Create formats
 fmt = "%y-%m-%d %H:%M"
@@ -33,11 +43,31 @@ printFmtNoTimezone = "%m/%d, %H:%M"
 async def on_ready():
     print(f"{client.user} is ready and online!")
 
+r'''
+  ____       _              _       _ _                 |
+ / ___|  ___| |__   ___  __| |_   _| (_)_ __   __ _     |
+ ___ \ / __| '_ \ / _ \/ _` | | | | | | '_ \ / _` |     |
+  ___) | (__| | | |  __/ (_| | |_| | | | | | | (_| |    |
+ |____/ \___|_| |_|\___|\__,_|\__,_|_|_|_| |_|\__, |    |
+                                              |___/     |
+'''
+
+scheduling = client.create_group("scheduling", "Commands that have to do with scheduling.", integration_types={discord.IntegrationType.user_install})
+timezoneArray = ["est", "cst", "mst", "pst"]
+
 # Schedules a message based on timezone objects.
 # One now and one later.
-@client.slash_command(name="schedule", description="Schedule a message.", integration_types={discord.IntegrationType.user_install})
-async def schedule_command(ctx: discord.ApplicationContext, message: str, timezone: str, month: int, day: int, hour: int, isam: bool, minute: int):
-    # Checks to send this message or another message...
+@scheduling.command(name="date", description="schedule based on timezone date.")
+async def date(
+    ctx: discord.ApplicationContext,
+    message: discord.Option(str, description="Message you want to schedule."),
+    timezone: discord.Option(str, description="Which timezone you're in.", choices=timezoneArray),
+    month: discord.Option(int, description="Month 0-12 to schedule for."),
+    day: discord.Option(int, description="Which day to schedule for."),
+    hour: discord.Option(int, description="Which hour to schedule for"),
+    isam: discord.Option(bool, description="If the message scheduled is for AM type True, otherwise, type False"),
+    minute: discord.Option(int, description="What minute, leave empty for 0.", default=0)
+):
     timeErrorTriggered = False
 
     # initializes timezone local and timezone UST
@@ -60,7 +90,7 @@ async def schedule_command(ctx: discord.ApplicationContext, message: str, timezo
         hour += 12
     if isam == True and was12 == True:
         hour -= 12
-    
+
     # Checks if the hours exceed 24, if it does, then it will add a day and take into account extra hours.
     if hour > 24:
         day += 1
@@ -92,8 +122,14 @@ async def schedule_command(ctx: discord.ApplicationContext, message: str, timezo
         await ctx.respond(message, ephemeral = False)
 
 # Schedules a message based on minutes or hours given
-@client.slash_command(name="schedulelater", description="Schedule a message based on different time inputs.", integration_types={discord.IntegrationType.user_install})
-async def schedule_later(ctx: discord.ApplicationContext, message: str, time: int, ishour: bool):
+@scheduling.command(name="delay", description="Schedule a message based on different time inputs.")
+async def delay(
+        ctx: discord.ApplicationContext,
+        message: discord.Option(str, description="Message you want to schedule."),
+        time: discord.Option(int, description="How long you want the message to be delayed by"),
+        ishour: discord.Option(bool, description="Is this scheduled for an hour? Default is False", default=False),
+
+):
     # Converts to seconds if minutes, and to minutes if hours
     finalTime = time * 60
     minuteOrHour = "minutes"
@@ -109,8 +145,11 @@ async def schedule_later(ctx: discord.ApplicationContext, message: str, time: in
     await ctx.respond(message, ephemeral = False)
 
 # Returns time in given timezone
-@client.slash_command(name="timein", description="Gives time in X timezone.", integration_types={discord.IntegrationType.user_install})
-async def time_in(ctx: discord.ApplicationContext, timezone: str):
+@scheduling.command(name="timein", description="Gives time in X timezone.")
+async def time_in(
+    ctx: discord.ApplicationContext,
+    timezone: discord.Option(str, description="Which timezone to use to get the time?", choices=timezoneArray)
+):
     # String of timezone
     tzString=find_time_zone(timezone)
 
@@ -124,11 +163,6 @@ async def time_in(ctx: discord.ApplicationContext, timezone: str):
     # Print message to discord
     tz_print = tz_now.strftime(printFmtNoTimezone)
     await ctx.respond(f'The day and hour is {tz_print} in {tzString}.')
-
-# Returns github link for the bot
-@client.slash_command(name="github", description="View source code and instructions.", integration_types={discord.IntegrationType.user_install}, ephemeral=True)
-async def github(ctx: discord.ApplicationContext):
-    await ctx.respond("https://github.com/InvaderGator/GatorBot")
 
 # Function to match timezone with pytz libary
 def find_time_zone(string):
@@ -197,6 +231,66 @@ def add_zero(number):
     if number < 10:
         returnNumber = f'0{number}'
     return returnNumber
+
+
+r'''
+     _    _   ____        _   _   _        ____                  _  __ _        |
+    / \  / | | __ )  ___ | |_| |_| | ___  / ___| _ __   ___  ___(_)/ _(_) ___   |
+   / _ \ | | |  _ \ / _ \| __| __| |/ _ \ \___ \| '_ \ / _ \/ __| | |_| |/ __|  |
+  / ___ \| | | |_) | (_) | |_| |_| |  __/  ___) | |_) |  __/ (__| |  _| | (__   |
+ /_/   \_\_| |____/ \___/ \__|\__|_|\___| |____/| .__/ \___|\___|_|_| |_|\___|  |
+                                                |_|                             |                            
+'''
+
+a1bottle = client.create_group("a1bottle", "Commands meant for use in the A1 Bottle", integration_types={discord.IntegrationType.guild_install})
+
+# Answers for the polling group!
+
+
+@a1bottle.command(name="immigrationpoll", description="Start a poll on to let someone into the A1Bottle or not.")
+async def immigration_poll(ctx: discord.ApplicationContext, user: str):
+    answers = [
+        discord.PollAnswer("Yes!", emoji=client.get_emoji(1464663059489489250)),
+        discord.PollAnswer("No!", emoji=client.get_emoji(1464663099008090385)),
+        discord.PollAnswer("Gulag!", emoji=client.get_emoji(1464663163873001737))
+    ]
+
+    fixedUserId = remove_extra(user)
+    person = client.get_user(fixedUserId)
+
+    if is_four(ctx.author.id):
+        poll = discord.Poll(question=f"Let in {person} into the A1 Bottle?", answers=answers, duration=24)
+        await ctx.respond(poll=poll)
+    else:
+        await ctx.respond("You are not authorized to use this bot. You have been reported to the Four.")
+
+def is_four(userid: int):
+    for x in theFourIds:
+        if x == userid:
+            return True
+    return False
+def remove_extra(userid: str):
+    newUserIdArray = []
+
+    for x in userid:
+        if (not (x == "<" or x == ">" or x == "@" or x == " ")):
+            newUserIdArray.append(x)
+
+    newUserId = "".join(newUserIdArray)
+    return int(newUserId)
+
+r'''
+  _____                 _   _                   |
+ |  ___|   _ _ __   ___| |_(_) ___  _ __  ___   |
+ | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|  |
+ |  _|| |_| | | | | (__| |_| | (_) | | | \__ |  |
+ |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/  |
+                                            
+'''
+# Returns github link for the bot
+@client.slash_command(name="github", description="View source code and instructions.", integration_types={discord.IntegrationType.user_install}, ephemeral=True)
+async def github(ctx: discord.ApplicationContext):
+    await ctx.respond("https://github.com/InvaderGator/GatorBot")
 
 # Run the Bot
 client.run(os.getenv('DISCORD_TOKEN'))
