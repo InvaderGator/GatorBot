@@ -7,10 +7,11 @@ Designed for personal usage for InvaderGator and his friends.
 
 *Includes an Immigration bot for the A1 Bottle*
 - Create polls to let people in, deny entry, or to send them to the Gulag
-
+- Gulag people
+- Ungulag people
 
 ## Replace files in .env
-## If you want to change the year put the last two digits of the year in .json.
+## If you want to change the year put the last two digits of the year in data.json.
 ###### For example if you wanted the year to be 2030, you'd put 30.
 
 # Installation
