@@ -22,7 +22,6 @@ load_dotenv()
 intents = discord.Intents.default()
 intents.members = True
 intents.emojis = True
-intents.message_content = True
 
 client = discord.Bot(intents=intents)
 
@@ -347,6 +346,8 @@ async def immigration_poll(ctx: discord.ApplicationContext, user: str):
         # Assigns to message class, thank you The Paillat on py-cord (:
         msg = await ctx.send(poll=poll)
         await ctx.send("<@&1254217152446333029>")
+
+        await asyncio.sleep(86400)
 
         # Gets the vote total.
         voteTotal = float(msg.poll.total_votes())
