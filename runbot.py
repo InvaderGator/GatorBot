@@ -382,6 +382,44 @@ async def immigration_poll(ctx: discord.ApplicationContext, user: str):
         await ctx.respond("You are not authorized to use this bot. You have been reported to the Four.")
 
 r'''
+     _                            ___   ___ ____   |
+    | | ___ _ __ _ __ ___   __ _ / _ \ ( _ ) ___|  |
+ _  | |/ _ \ '__| '_ ` _ \ / _` | (_) |/ _ \___ \  |
+| |_| |  __/ |  | | | | | | (_| |\__, | (_) |__) | |
+ \___/ \___|_|  |_| |_| |_|\__,_|  /_/ \___/____/  |
+ 
+'''
+
+jerma = client.create_group("jerma", "Hey all! Jerma985 here!", integration_types={discord.IntegrationType.user_install})
+
+dayArray = [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+]
+
+@jerma.command(name="sparkleon", description="Sparkle on, it's _____! Don't forget to be yourself!")
+async def sparkle(
+        ctx: discord.ApplicationContext,
+        weekday: discord.Option(str, description="Today is?", choices=dayArray)
+):
+    weekday.lower()
+
+    file = discord.File(f"jerma/{weekday}.gif")
+    await ctx.respond("Jerma sent!", ephemeral=True)
+    await ctx.send(file=file)
+
+@jerma.command(name="sparkleoff", description="Sparkle off, it's midnight! Don't forget to sleep!")
+async def sparkleoff(ctx: discord.ApplicationContext):
+    file = discord.File(f"jerma/midnight.gif")
+    await ctx.respond("Jerma sent!", ephemeral=True)
+    await ctx.send(file=file)
+
+r'''
   _____                 _   _                   |
  |  ___|   _ _ __   ___| |_(_) ___  _ __  ___   |
  | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|  |
