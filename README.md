@@ -10,9 +10,9 @@ Designed for personal usage for InvaderGator and his friends.
 - Gulag people
 - Ungulag people
 
-  *Fun Stuffs*
-  - Jerma985 Sparkling On
-  - Jerma985 Sparkling Off
+*Fun Stuffs*
+- Jerma985 Sparkling On
+- Jerma985 Sparkling Off
 
 ## Replace files in .env
 ## If you want to change the year put the last two digits of the year in data.json.
